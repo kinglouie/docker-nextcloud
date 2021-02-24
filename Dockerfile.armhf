@@ -51,6 +51,7 @@ RUN \
 	php7-memcached \
 	php7-opcache \
 	php7-pcntl \
+	php7-pear \
 	php7-pdo_mysql \
 	php7-pdo_pgsql \
 	php7-pdo_sqlite \
@@ -74,8 +75,10 @@ RUN \
 	--with-php-config=/usr/bin/php-config7 && \
  make && \
  make install && \
+ pecl install inotify && \
  echo "**** configure php and nginx for nextcloud ****" && \
  echo "extension="smbclient.so"" > /etc/php7/conf.d/00_smbclient.ini && \
+ echo "extension="inotify.so"" > /etc/php7/conf.d/00_inotify.ini && \
  echo 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini && \
  sed -i \
 	-e 's/;opcache.enable.*=.*/opcache.enable=1/g' \
